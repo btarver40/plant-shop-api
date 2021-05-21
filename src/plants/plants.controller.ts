@@ -1,7 +1,7 @@
 import { Controller, Get } from '@nestjs/common';
 import { Request } from 'express';
 
-@Controller('plants')
+@Controller('plantss')
 export class PlantsController {
     @Get()
     findAll(@Req() request: Request): string {
