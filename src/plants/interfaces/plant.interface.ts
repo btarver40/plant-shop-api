@@ -1,4 +1,4 @@
-export interface Plants {
+export interface Plant {
   name: string;
   id?: string;
   scientificName: string;

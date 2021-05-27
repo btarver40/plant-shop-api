@@ -10,25 +10,25 @@ import {
 // import { Request } from 'express';
 import { PlantsDto } from './dto/plants.dto';
 import { PlantsService } from './plants.service';
-import { Plants } from './interfaces/plants.interface';
+import { Plant } from './interfaces/plant.interface';
 
 @Controller('plants')
 export class PlantsController {
   constructor(private readonly plantsService: PlantsService) {}
 
   @Get()
-  findAall(): Plants[] {
+  async findAall(): Promise<Plant[]> {
     return this.plantsService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param() param): string {
-    return `Moss ${param.id}`;
+  async findOne(@Param('id') id): Promise<Plant> {
+    return this.plantsService.findOne(id);
   }
 
   @Post()
-  create(@Body() createPlantsDto: PlantsDto): string {
-    return `Name: ${createPlantsDto.name} Fun Fact: ${createPlantsDto.description} Price: ${createPlantsDto.price}`;
+  create(@Body() createPlantsDto: PlantsDto): Promise<Plant> {
+    return this.plantsService.create(createPlantsDto);
   }
 
   @Delete(':id')

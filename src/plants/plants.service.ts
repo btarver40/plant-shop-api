@@ -1,28 +1,22 @@
 import { Injectable } from '@nestjs/common';
-import { Plants } from './interfaces/plants.interface';
+import { Plant } from './interfaces/plant.interface';
+import { Model } from 'mongoose';
+import { InjectModel } from '@nestjs/mongoose';
 
 @Injectable()
 export class PlantsService {
-  private readonly plants: Plants[] = [
-    {
-      name: 'Moss',
-      id: '123234',
-      scientificName: 'Bryophyta',
-      price: 50,
-      qty: 25,
-      description: 'Plant 1',
-    },
-    {
-      name: 'Moss2',
-      id: '098796',
-      scientificName: 'Bryophyta',
-      price: 50,
-      qty: 25,
-      description: 'Plant 2',
-    },
-  ];
+  constructor(@InjectModel('Plant') private readonly plantModel:Model<Plant>) {}
 
-  findAll(): Plants[] {
-    return this.plants;
+  async findAll(): Promise<Plant[]> {
+    return await this.plantModel.find();
+  }
+
+  async findOne(id: string): Promise<Plant> {
+    return await this.plantModel.findOne({_id: id });
+  }
+
+  async create(plant: Plant): Promise<Plant> {
+    const newPlant = new this.plantModel(plant);
+    return await newPlant.save();
   }
 }
