@@ -7,7 +7,6 @@ import {
   Body,
   Param,
 } from '@nestjs/common';
-// import { Request } from 'express';
 import { PlantsDto } from './dto/plants.dto';
 import { PlantsService } from './plants.service';
 import { Plant } from './interfaces/plant.interface';
@@ -17,12 +16,12 @@ export class PlantsController {
   constructor(private readonly plantsService: PlantsService) {}
 
   @Get()
-  async findAall(): Promise<Plant[]> {
+  findAll(): Promise<Plant[]> {
     return this.plantsService.findAll();
   }
 
   @Get(':id')
-  async findOne(@Param('id') id): Promise<Plant> {
+  findOne(@Param('id') id): Promise<Plant> {
     return this.plantsService.findOne(id);
   }
 
@@ -32,12 +31,12 @@ export class PlantsController {
   }
 
   @Delete(':id')
-  delete(@Param('id') id): string {
-    return `Delete ${id}`;
+  delete(@Param('id') id): Promise<Plant> {
+    return this.plantsService.delete(id);
   }
 
   @Put(':id')
-  update(@Body() updatePlantsDto: PlantsDto, @Param('id') id): string {
-    return `Update ${id} - Name ${updatePlantsDto.name}`;
+  update(@Body() updatePlantsDto: PlantsDto, @Param('id') id): Promise<Plant> {
+    return this.plantsService.update(id, updatePlantsDto);
   }
 }

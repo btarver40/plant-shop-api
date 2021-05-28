@@ -6,4 +6,4 @@ export const PlantSchema = new mongoose.Schema({
     price: Number,
     qty: Number,
     descripton: String,
-})
+});

@@ -8,7 +8,7 @@ import { PlantSchema } from './schemas/plant.schema';
 // import { DetailsModule } from './details/details.module';
 
 @Module({
-  imports: [MongooseModule.forFeature([{name: 'Plant1', schema: PlantSchema}])],
+  imports: [MongooseModule.forFeature([{name: 'Plant', schema: PlantSchema}])],
   controllers: [PlantsController],
   providers: [PlantsService],
 })
